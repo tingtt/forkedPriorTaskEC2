@@ -43,8 +43,13 @@ def users():
 def user(id):
     props = {'title': 'User Information', 'msg': 'User Information'}
     stmt = 'SELECT * FROM users WHERE id = ?'
-    user = mysql.query(stmt, id, prepared=True)
-    html = render_template('user.html', props=props, user=user[0])
+    user = list(mysql.query(stmt, id, prepared=True)[0])
+    if isinstance(user[3], str) & (user[3] == 'ç”·'):
+        user[3] = '男'
+    else:
+        user[3] = '女'
+    user = tuple(user)
+    html = render_template('user.html', props=props, user=user)
     return html
 
 
