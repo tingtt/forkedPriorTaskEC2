@@ -6,14 +6,13 @@ services:
     image: mysql:8
     command: --default-authentication-plugin=mysql_native_password
     volumes:
-      - ./mysql/data:/var/lib/mysql
-      - ./mysql/init:/docker-entrypoint-initdb.d
+      # - ./db/mysql/data:/var/lib/mysql
+      - ./db/mysql/init:/docker-entrypoint-initdb.d
     # restart: always
     # tty: true
     environment:
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_DATABASE: sample_db
-    TZ: Asia/Tokyo
 
   # uWSGI + Flask
   python:
