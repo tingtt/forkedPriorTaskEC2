@@ -8,8 +8,9 @@ services:
     volumes:
       # - ./db/mysql/data:/var/lib/mysql
       - ./db/mysql/init:/docker-entrypoint-initdb.d
-    # restart: always
+    restart: always
     # tty: true
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_DATABASE: sample_db
@@ -19,6 +20,8 @@ services:
     build: ./python
     ports:
       - "5000:5000"
+    depends_on:
+      - mysql
     volumes:
       - "./python/src:/src"
     environment:
